@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:security_camera_project/addUser/add_user.dart';
+import 'package:security_camera_project/addUser/user_list.dart';
 
 class Dashboard extends HookWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -10,13 +10,17 @@ class Dashboard extends HookWidget {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Home',
-      style: optionStyle,
+    Center(
+      child: Text(
+        'Home',
+        style: optionStyle,
+      ),
     ),
-    Text(
-      'Likes',
-      style: optionStyle,
+    Center(
+      child: Text(
+        'Camera',
+        style: optionStyle,
+      ),
     ),
     AddUser()
   ];
