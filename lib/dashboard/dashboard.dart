@@ -48,12 +48,12 @@ class Dashboard extends HookWidget {
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
               child: GNav(
                 gap: 8,
-                activeColor: Colors.blueAccent,
+                activeColor: Colors.blue,
                 iconSize: 24,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 400),
-                tabBackgroundColor: Colors.grey[100]!,
+                tabBackgroundColor: Colors.blue.shade100,
                 color: Colors.black,
                 tabs: const [
                   GButton(
