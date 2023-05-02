@@ -1,32 +1,26 @@
-// import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:security_camera_project/core/db/user.dart';
 
 part 'users_event.dart';
 part 'users_state.dart';
 
-class UsersBloc extends HydratedBloc<UsersEvent, UsersState> {
+class UsersBloc extends Bloc<UsersEvent, UsersState> {
   UsersBloc() : super(const UsersState(userList: [])) {
-    on<UsersEvent>((event, emit) {
+    on<UsersEvent>((event, emit) async {
       if (event is AddUser) {
-        emit(state.copyWith(userList: [...state.userList, event.newUser]));
+        final users = await UserCRUD.addUser(userData: event.newUser);
+
+        emit(state.copyWith(userList: users));
       } else if (event is RemoveUser) {
-        emit(state.copyWith(userList: [...state.userList..removeAt(event.index)]));
+        final users = await UserCRUD.removeUser(index: event.index);
+        emit(state.copyWith(userList: users));
+      } else if (event is GetUsers) {
+        final users = await UserCRUD.getUsers();
+
+        emit(state.copyWith(userList: users ?? []));
       }
     });
-  }
-
-  @override
-  UsersState fromJson(Map<String, dynamic> json) {
-    final userList = List<Map<String, dynamic>>.from(json['userList']);
-    return UsersState(userList: userList);
-  }
-
-  @override
-  Map<String, dynamic> toJson(UsersState state) {
-    // final userList = state.userList.map((user) => user.toString()).toList();
-    final List<Map<String, dynamic>> userList = state.userList;
-    return {'userList': userList};
   }
 }

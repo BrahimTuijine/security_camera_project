@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -12,6 +14,10 @@ class AddUser extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    useEffect(() {
+      BlocProvider.of<UsersBloc>(context).add(GetUsers());
+      return null;
+    }, const []);
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -42,8 +48,12 @@ class AddUser extends HookWidget {
                 print(state.userList);
                 return Card(
                   child: ListTile(
-                    subtitle: Text(state.userList[index]['email']),
-                    title: Text(state.userList[index]['nom']),
+                    title: Text(
+                      json.decode(state.userList[index])['nom'],
+                      style: TextStyle(
+                          fontSize: 16.sp, fontWeight: FontWeight.w500),
+                    ),
+                    subtitle: Text(json.decode(state.userList[index])['email']),
                     leading: const Icon(LineIcons.user),
                     trailing: SizedBox(
                       width: 120.w,
@@ -66,7 +76,8 @@ class AddUser extends HookWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => CreateUpdateUser(
-                                    userToUpdate: state.userList[index],
+                                    userToUpdate:
+                                        json.decode(state.userList[index]),
                                   ),
                                 ),
                               );

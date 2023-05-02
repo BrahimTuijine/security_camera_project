@@ -7,7 +7,7 @@ abstract class UsersEvent extends Equatable {
 }
 
 class AddUser extends UsersEvent {
-  final Map<String, dynamic> newUser;
+  final Map<String, String> newUser;
   AddUser({
     required this.newUser,
   });
@@ -25,3 +25,5 @@ class RemoveUser extends UsersEvent {
   @override
   List<Object> get props => [index];
 }
+
+class GetUsers extends UsersEvent {}

@@ -2,7 +2,7 @@
 part of 'users_bloc.dart';
 
 class UsersState extends Equatable {
-  final List<Map<String, dynamic>> userList;
+  final List<String> userList;
   const UsersState({
     this.userList = const [],
   });
@@ -11,7 +11,7 @@ class UsersState extends Equatable {
   List<Object> get props => [userList];
 
   UsersState copyWith({
-    List<Map<String, dynamic>>? userList,
+    List<String>? userList,
   }) {
     return UsersState(
       userList: userList ?? this.userList,

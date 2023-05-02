@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserCRUD {
-  static Future<void> addUser({required Map<String, String> userData}) async {
+  static Future<List<String>> addUser(
+      {required Map<String, String> userData}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String>? userList = prefs.getStringList('users');
     List<String> insertedData = [];
@@ -13,6 +14,9 @@ class UserCRUD {
       insertedData = userList..add(json.encode(userData));
     }
     await prefs.setStringList('users', insertedData);
+
+    final newUserList = prefs.getStringList('users');
+    return newUserList!;
   }
 
   static Future<List<String>?> getUsers() async {
@@ -20,4 +24,21 @@ class UserCRUD {
     final List<String>? userList = prefs.getStringList('users');
     return userList;
   }
+
+  static Future<List<String>> removeUser({required int index}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String>? items = prefs.getStringList('users');
+    items!.removeAt(index);
+    prefs.setStringList('users', items);
+
+    final newUserList = prefs.getStringList('users');
+    return newUserList!;
+  }
+
+  // static Future<List<String>> updateUser(
+  //     {required int index, required Map<String, String> newDataUser}) async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final List<String>? items = prefs.getStringList('users');
+
+  // }
 }
