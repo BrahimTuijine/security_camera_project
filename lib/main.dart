@@ -18,6 +18,12 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => BlocProvider(
         create: (context) => UsersBloc(),
         child: MaterialApp(
+          builder: (context, child) => GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: child,
+          ),
           debugShowCheckedModeBanner: false,
           home: LoginPage(),
         ),

@@ -29,16 +29,26 @@ class UserCRUD {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String>? items = prefs.getStringList('users');
     items!.removeAt(index);
-    prefs.setStringList('users', items);
+    await prefs.setStringList('users', items);
 
     final newUserList = prefs.getStringList('users');
     return newUserList!;
   }
 
-  // static Future<List<String>> updateUser(
-  //     {required int index, required Map<String, String> newDataUser}) async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final List<String>? items = prefs.getStringList('users');
+  static Future<List<String>> updateUser(
+      {required int index, required Map<String, String> newDataUser}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String>? items = prefs.getStringList('users');
 
-  // }
+    final oldUser = json.decode(items![index]);
+
+    oldUser['nom'] = newDataUser['nom']!;
+    oldUser['email'] = newDataUser['email']!;
+    oldUser['password'] = newDataUser['password']!;
+
+    items[index] = json.encode(oldUser);
+
+    await prefs.setStringList('users', items);
+    return items;
+  }
 }

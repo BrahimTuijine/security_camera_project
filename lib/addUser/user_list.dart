@@ -45,7 +45,7 @@ class AddUser extends HookWidget {
               separatorBuilder: (context, index) => 5.h.bh,
               itemCount: state.userList.length,
               itemBuilder: (BuildContext context, int index) {
-                print(state.userList);
+                
                 return Card(
                   child: ListTile(
                     title: Text(
@@ -76,8 +76,9 @@ class AddUser extends HookWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => CreateUpdateUser(
+                                    index: index,
                                     userToUpdate:
-                                        json.decode(state.userList[index]),
+                                        state.userList[index],
                                   ),
                                 ),
                               );

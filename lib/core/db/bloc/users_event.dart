@@ -27,3 +27,15 @@ class RemoveUser extends UsersEvent {
 }
 
 class GetUsers extends UsersEvent {}
+
+class UpdateUser extends UsersEvent {
+  final Map<String, String> updatedUser;
+  final int index;
+  UpdateUser({
+    required this.updatedUser,
+    required this.index,
+  });
+
+  @override
+  List<Object> get props => [updatedUser, index];
+}

@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +11,13 @@ import 'package:security_camera_project/core/db/bloc/users_bloc.dart';
 import 'package:security_camera_project/core/extension/extensions.dart';
 
 class CreateUpdateUser extends HookWidget {
-  final Map<String, dynamic>? userToUpdate;
+  final String? userToUpdate;
+  final int? index;
 
   CreateUpdateUser({
     super.key,
     this.userToUpdate,
+    this.index,
   });
 
   final formKey = GlobalKey<FormState>();
@@ -70,7 +74,9 @@ class CreateUpdateUser extends HookWidget {
                   ),
                   20.h.bh,
                   TextFormField(
-                    initialValue: userToUpdate?['nom'] ?? '',
+                    initialValue: userToUpdate == null
+                        ? ''
+                        : json.decode(userToUpdate!)['nom'],
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.supervisor_account_sharp,
@@ -93,7 +99,9 @@ class CreateUpdateUser extends HookWidget {
                   ),
                   15.h.bh,
                   TextFormField(
-                    initialValue: userToUpdate?['email'] ?? '',
+                    initialValue: userToUpdate == null
+                        ? ''
+                        : json.decode(userToUpdate!)['email'],
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.email,
@@ -116,7 +124,9 @@ class CreateUpdateUser extends HookWidget {
                   ),
                   15.h.bh,
                   TextFormField(
-                    initialValue: userToUpdate?['password'] ?? '',
+                    initialValue: userToUpdate == null
+                        ? ''
+                        : json.decode(userToUpdate!)['password'],
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.lock_outline,
@@ -148,8 +158,14 @@ class CreateUpdateUser extends HookWidget {
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
-                            BlocProvider.of<UsersBloc>(context)
-                                .add(AddUser(newUser: userData));
+                            if (userToUpdate == null) {
+                              BlocProvider.of<UsersBloc>(context)
+                                  .add(AddUser(newUser: userData));
+                            } else {
+                              BlocProvider.of<UsersBloc>(context).add(
+                                  UpdateUser(
+                                      updatedUser: userData, index: index!));
+                            }
                             AwesomeDialog(
                               context: context,
                               animType: AnimType.leftSlide,

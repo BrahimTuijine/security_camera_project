@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:security_camera_project/core/db/user.dart';
@@ -20,6 +19,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         final users = await UserCRUD.getUsers();
 
         emit(state.copyWith(userList: users ?? []));
+      } else if (event is UpdateUser) {
+        final users = await UserCRUD.updateUser(
+            index: event.index, newDataUser: event.updatedUser);
+        emit(state.copyWith(userList: users));
       }
     });
   }
