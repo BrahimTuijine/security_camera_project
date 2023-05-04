@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:security_camera_project/addUser/user_list.dart';
-import 'package:security_camera_project/home/home.dart';
+import 'package:security_camera_project/features/home/home.dart';
 
-class Dashboard extends HookWidget {
-  const Dashboard({Key? key}) : super(key: key);
+class UserDashboard extends HookWidget {
+  const UserDashboard({Key? key}) : super(key: key);
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
@@ -14,11 +13,10 @@ class Dashboard extends HookWidget {
     HomePage(),
     const Center(
       child: Text(
-        'Camera',
+        'User Camera',
         style: optionStyle,
       ),
     ),
-    const AddUser()
   ];
 
   @override
@@ -59,10 +57,6 @@ class Dashboard extends HookWidget {
                   GButton(
                     icon: Icons.camera,
                     text: 'Camera',
-                  ),
-                  GButton(
-                    icon: LineIcons.userPlus,
-                    text: 'Users',
                   ),
                 ],
                 selectedIndex: selectedIndex.value,

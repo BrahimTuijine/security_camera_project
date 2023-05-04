@@ -51,4 +51,21 @@ class UserCRUD {
     await prefs.setStringList('users', items);
     return items;
   }
+
+  static Future<bool> isThisUserFound(
+      {required Map<String, String> user}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String>? items = prefs.getStringList('users');
+    if (items == null) {
+      return false;
+    }
+
+    final test = items.where((element) {
+      final olduser = json.decode(element);
+      return olduser['email'] == user['email'] &&
+          olduser['password'] == user['password'];
+    }).toList();
+
+    return test.isNotEmpty;
+  }
 }

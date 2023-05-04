@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:security_camera_project/auth/login_page.dart';
+import 'package:security_camera_project/features/auth/login_page.dart';
 import 'package:security_camera_project/core/db/bloc/users_bloc.dart';
 
 void main() async {
