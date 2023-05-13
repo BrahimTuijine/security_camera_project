@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:security_camera_project/core/db/user.dart';
 import 'package:security_camera_project/core/extension/extensions.dart';
 import 'package:security_camera_project/features/dashboard/dashboard.dart';
 import 'package:security_camera_project/features/userDashboard/user_dashboard.dart';
@@ -161,12 +160,7 @@ class LoginPage extends HookWidget {
                                       ).show();
                                     }
                                   } else {
-                                    if (await UserCRUD.isThisUserFound(
-                                      user: {
-                                        'email': email,
-                                        'password': password
-                                      },
-                                    )) {
+                                    if (true) {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

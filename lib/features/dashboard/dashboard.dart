@@ -18,7 +18,7 @@ class Dashboard extends HookWidget {
         style: optionStyle,
       ),
     ),
-    const AddUser()
+    AddUser()
   ];
 
   @override

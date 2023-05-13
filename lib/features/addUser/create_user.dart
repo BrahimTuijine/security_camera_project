@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:security_camera_project/core/db/user.dart';
 
-import 'package:security_camera_project/core/db/bloc/users_bloc.dart';
 import 'package:security_camera_project/core/extension/extensions.dart';
 
 class CreateUpdateUser extends HookWidget {
   final String? userToUpdate;
-  final int? index;
+  final String? docId;
 
   CreateUpdateUser({
     super.key,
     this.userToUpdate,
-    this.index,
+    this.docId,
   });
 
   final formKey = GlobalKey<FormState>();
@@ -159,12 +159,12 @@ class CreateUpdateUser extends HookWidget {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
                             if (userToUpdate == null) {
-                              BlocProvider.of<UsersBloc>(context)
-                                  .add(AddUser(newUser: userData));
+                             UserCRUD().addUser(userData);
                             } else {
-                              BlocProvider.of<UsersBloc>(context).add(
-                                  UpdateUser(
-                                      updatedUser: userData, index: index!));
+                              UserCRUD().updateUser(docId: docId!, newUser : userData);
+                              // BlocProvider.of<UsersBloc>(context).add(
+                              //     UpdateUser(
+                              //         updatedUser: userData, index: index!));
                             }
                             AwesomeDialog(
                               context: context,
