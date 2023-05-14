@@ -10,7 +10,9 @@ class UserCRUD {
         .snapshots()
         .map((event) => event.docs.map(
               (e) {
-                final result = UserModel.fromJson(e.data());
+                // print(e.data());
+                Map<String, dynamic> map = {"id": e.id, ...e.data()};
+                final result = UserModel.fromJson(map);
                 return result;
               },
             ).toList());
@@ -29,17 +31,18 @@ class UserCRUD {
     await userRef.doc(docId).delete();
   }
 
-  // Future<bool> isThisUserFound(
-  //     {required String email, required String passowrd}) async {
-  //   await for (final result in getUsers()) {
-  //     final user = result.where((element) => element.email == email).toList();
-  //     if (user.isNotEmpty) {
-  //       return user.first.password == passowrd;
-  //     } else {
-  //       return false;
-  //     }
-  //   }
+  Future<bool> isThisUserFound(
+      {required String email, required String passowrd}) async {
+    await for (final result in getUsers()) {
+      final user = result.where(
+          (element) => element.email == email && element.password == passowrd);
+      if (user.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 
-  //   return false;
-  // }
+    return false;
+  }
 }

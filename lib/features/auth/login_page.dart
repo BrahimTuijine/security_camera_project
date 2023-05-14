@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:security_camera_project/core/db/user.dart';
 import 'package:security_camera_project/core/extension/extensions.dart';
 import 'package:security_camera_project/features/dashboard/dashboard.dart';
 import 'package:security_camera_project/features/userDashboard/user_dashboard.dart';
@@ -160,26 +161,31 @@ class LoginPage extends HookWidget {
                                       ).show();
                                     }
                                   } else {
-                                    if (true) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const UserDashboard()),
-                                      );
+                                    if (await UserCRUD().isThisUserFound(
+                                        email: email, passowrd: password)) {
+                                      if (context.mounted) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const UserDashboard()),
+                                        );
+                                      }
                                     } else {
-                                      AwesomeDialog(
-                                        context: context,
-                                        dialogType: DialogType.error,
-                                        animType: AnimType.rightSlide,
-                                        headerAnimationLoop: false,
-                                        title: 'Error',
-                                        desc:
-                                            "nom d'utilisateur ou mot de passe erroné",
-                                        btnOkOnPress: () {},
-                                        btnOkIcon: Icons.cancel,
-                                        btnOkColor: Colors.red,
-                                      ).show();
+                                      if (context.mounted) {
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.error,
+                                          animType: AnimType.rightSlide,
+                                          headerAnimationLoop: false,
+                                          title: 'Error',
+                                          desc:
+                                              "nom d'utilisateur ou mot de passe erroné",
+                                          btnOkOnPress: () {},
+                                          btnOkIcon: Icons.cancel,
+                                          btnOkColor: Colors.red,
+                                        ).show();
+                                      }
                                     }
                                   }
                                 }

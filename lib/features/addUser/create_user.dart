@@ -1,29 +1,25 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:security_camera_project/core/Model/userModel.dart';
 import 'package:security_camera_project/core/db/user.dart';
 
 import 'package:security_camera_project/core/extension/extensions.dart';
 
 class CreateUpdateUser extends HookWidget {
-  final String? userToUpdate;
-  final String? docId;
+  final UserModel? userToUpdate;
 
   CreateUpdateUser({
     super.key,
     this.userToUpdate,
-    this.docId,
   });
 
   final formKey = GlobalKey<FormState>();
 
   final Map<String, String> userData = {
-    'nom': '',
+    'name': '',
     'email': '',
     'password': '',
   };
@@ -74,9 +70,8 @@ class CreateUpdateUser extends HookWidget {
                   ),
                   20.h.bh,
                   TextFormField(
-                    initialValue: userToUpdate == null
-                        ? ''
-                        : json.decode(userToUpdate!)['nom'],
+                    initialValue:
+                        userToUpdate == null ? '' : userToUpdate!.name,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.supervisor_account_sharp,
@@ -94,14 +89,13 @@ class CreateUpdateUser extends HookWidget {
                       return null;
                     },
                     onSaved: (nom) {
-                      userData['nom'] = nom!;
+                      userData['name'] = nom!;
                     },
                   ),
                   15.h.bh,
                   TextFormField(
-                    initialValue: userToUpdate == null
-                        ? ''
-                        : json.decode(userToUpdate!)['email'],
+                    initialValue:
+                        userToUpdate == null ? '' : userToUpdate!.email,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.email,
@@ -124,9 +118,8 @@ class CreateUpdateUser extends HookWidget {
                   ),
                   15.h.bh,
                   TextFormField(
-                    initialValue: userToUpdate == null
-                        ? ''
-                        : json.decode(userToUpdate!)['password'],
+                    initialValue:
+                        userToUpdate == null ? '' : userToUpdate!.password,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.lock_outline,
@@ -159,12 +152,10 @@ class CreateUpdateUser extends HookWidget {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState!.save();
                             if (userToUpdate == null) {
-                             UserCRUD().addUser(userData);
+                              UserCRUD().addUser(userData);
                             } else {
-                              UserCRUD().updateUser(docId: docId!, newUser : userData);
-                              // BlocProvider.of<UsersBloc>(context).add(
-                              //     UpdateUser(
-                              //         updatedUser: userData, index: index!));
+                              UserCRUD().updateUser(
+                                  docId: userToUpdate!.id!, newUser: userData);
                             }
                             AwesomeDialog(
                               context: context,
