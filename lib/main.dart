@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:security_camera_project/features/dashboard/dashboard.dart';
+import 'package:security_camera_project/features/onboarding/onboarding.dart';
 import 'package:security_camera_project/firebase_options.dart';
 
 Future<void> main() async {
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           child: child,
         ),
         debugShowCheckedModeBanner: false,
-        home: const Dashboard(),
+        home: const OnboardingScreen(),
       ),
     );
   }

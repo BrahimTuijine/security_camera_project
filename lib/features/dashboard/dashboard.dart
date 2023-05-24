@@ -11,7 +11,7 @@ class Dashboard extends HookWidget {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static final List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
+    const HomePage(),
     const Center(
       child: Text(
         'Camera',
