@@ -99,7 +99,7 @@ class GaugeTemperatureMonitorExample extends HookWidget {
             ],
             pointers: <GaugePointer>[
               NeedlePointer(
-                value: 50,
+                value: 22.5,
                 needleStartWidth: isCardView ? 0 : 1,
                 needleEndWidth: isCardView ? 5 : 8,
                 animationType: AnimationType.easeOutBack,
