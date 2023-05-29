@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:security_camera_project/constants.dart';
 import 'package:security_camera_project/core/db/auth.dart';
 import 'package:security_camera_project/core/db/user.dart';
 import 'package:security_camera_project/core/extension/extensions.dart';
@@ -30,7 +31,7 @@ class LoginPage extends HookWidget {
               clipper: WaveClipperTwo(),
               child: Container(
                 height: 140.h,
-                color: Colors.blue,
+                color: kOrangeColor,
               ),
             ),
             // 40.h.bh,
@@ -48,7 +49,7 @@ class LoginPage extends HookWidget {
                     Text(
                       'CONNECTION',
                       style: TextStyle(
-                          color: Colors.blue,
+                          color: kBlueColor,
                           fontSize: 30.sp,
                           fontWeight: FontWeight.w600),
                     ),
@@ -60,14 +61,14 @@ class LoginPage extends HookWidget {
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.supervisor_account_sharp,
-                          color: Colors.blue,
+                          color: kOrangeColor,
                         ),
                         hintText: 'E-mail',
                         hintStyle: const TextStyle(color: Colors.white),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30.r),
                             borderSide: BorderSide.none),
-                        fillColor: Colors.blue.withOpacity(.3),
+                        fillColor: kOrangeColor.withOpacity(.3),
                         filled: true,
                       ),
                     ),
@@ -79,14 +80,14 @@ class LoginPage extends HookWidget {
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.lock_outline,
-                          color: Colors.blue,
+                          color: kOrangeColor,
                         ),
                         hintText: 'Mot de passe',
                         hintStyle: const TextStyle(color: Colors.white),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30.r),
                             borderSide: BorderSide.none),
-                        fillColor: Colors.blue.withOpacity(.3),
+                        fillColor: kOrangeColor.withOpacity(.3),
                         filled: true,
                       ),
                     ),
@@ -100,6 +101,7 @@ class LoginPage extends HookWidget {
                             contentPadding: EdgeInsets.zero,
                             title: const Text('admin'),
                             leading: Radio<int>(
+                              activeColor: kOrangeColor,
                               value: 0,
                               groupValue: isAdmin.value,
                               onChanged: (int? value) {
@@ -114,6 +116,7 @@ class LoginPage extends HookWidget {
                             contentPadding: EdgeInsets.zero,
                             title: const Text('utilisateur'),
                             leading: Radio<int>(
+                              activeColor: kOrangeColor,
                               value: 1,
                               groupValue: isAdmin.value,
                               onChanged: (int? value) {
@@ -131,6 +134,7 @@ class LoginPage extends HookWidget {
                         width: 220.w,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                              backgroundColor: kOrangeColor,
                               shape: const StadiumBorder()),
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
