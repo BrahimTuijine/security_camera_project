@@ -3,8 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:security_camera_project/constants.dart';
 
 class ControllButton extends HookWidget {
-  const ControllButton({
+  ControllButton({
     Key? key,
+    required this.onTap,
+    required this.selected,
     required this.size,
     required this.title,
     required this.icon,
@@ -13,25 +15,24 @@ class ControllButton extends HookWidget {
   final Size size;
   final IconData icon;
   final String title;
+  void Function()? onTap;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {
-    final isSelected = useState<bool>(false);
     return Column(
       children: [
         GestureDetector(
-          onTap: () {
-            isSelected.value = !isSelected.value;
-          },
+          onTap: onTap,
           child: Container(
             height: size.height * 0.105,
             width: size.width * 0.21,
             decoration: BoxDecoration(
-              color: isSelected.value ? kOrangeColor : Colors.white,
+              color: selected ? kOrangeColor : Colors.white,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: isSelected.value
+                  color: selected
                       ? kOrangeColor.withOpacity(0.5)
                       : Colors.grey.shade200,
                   blurRadius: 30,
@@ -41,9 +42,7 @@ class ControllButton extends HookWidget {
             ),
             child: Icon(
               icon,
-              color: isSelected.value
-                  ? Colors.white
-                  : kDarkGreyColor.withOpacity(0.6),
+              color: selected ? Colors.white : kDarkGreyColor.withOpacity(0.6),
               size: 45,
             ),
           ),
