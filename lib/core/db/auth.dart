@@ -7,10 +7,18 @@ class Auth {
 
   Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
 
-  Future<void> signInWithEmailAndPassword(
+static Future<UserCredential?> signInWithEmailAndPass(
       {required String email, required String password}) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      return credential;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+        return null;
+      }
+    }
+    return null;
   }
 
   Future<void> signOut() async {

@@ -3,17 +3,17 @@ import 'package:security_camera_project/constants.dart';
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton(
-      {Key? key, required this.size, required this.title, required this.press})
+      {Key? key, required this.size, required this.title, required this.onTap})
       : super(key: key);
 
   final Size size;
   final String title;
-  final GestureTapCallback press;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         height: size.height * 0.07,
         width: double.infinity,

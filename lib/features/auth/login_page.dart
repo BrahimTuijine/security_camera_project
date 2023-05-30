@@ -55,6 +55,12 @@ class LoginPage extends HookWidget {
                     ),
                     20.h.bh,
                     TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'ne doit pas être vide';
+                        }
+                        return null;
+                      },
                       onSaved: (newValue) {
                         email = newValue!;
                       },
@@ -74,6 +80,12 @@ class LoginPage extends HookWidget {
                     ),
                     15.h.bh,
                     TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'ne doit pas être vide';
+                        }
+                        return null;
+                      },
                       onSaved: (newValue) {
                         password = newValue!;
                       },
@@ -141,29 +153,34 @@ class LoginPage extends HookWidget {
                               formKey.currentState!.save();
 
                               if (isAdmin.value == 0) {
-                                try {
-                                  Auth().signInWithEmailAndPassword(
-                                      email: email.trim(),
-                                      password: password.trim());
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const Dashboard()),
-                                  );
-                                } catch (e) {
-                                  AwesomeDialog(
-                                    context: context,
-                                    dialogType: DialogType.error,
-                                    animType: AnimType.rightSlide,
-                                    headerAnimationLoop: false,
-                                    title: 'Error',
-                                    desc:
-                                        "nom d'utilisateur ou mot de passe erroné",
-                                    btnOkOnPress: () {},
-                                    btnOkIcon: Icons.cancel,
-                                    btnOkColor: Colors.red,
-                                  ).show();
+                                final auth = await Auth.signInWithEmailAndPass(
+                                    email: email.trim(),
+                                    password: password.trim());
+
+                                if (auth == null) {
+                                  if (context.mounted) {
+                                    AwesomeDialog(
+                                      context: context,
+                                      dialogType: DialogType.error,
+                                      animType: AnimType.rightSlide,
+                                      headerAnimationLoop: false,
+                                      title: 'Error',
+                                      desc:
+                                          "nom d'utilisateur ou mot de passe erroné",
+                                      btnOkOnPress: () {},
+                                      btnOkIcon: Icons.cancel,
+                                      btnOkColor: Colors.red,
+                                    ).show();
+                                  }
+                                } else {
+                                  if (context.mounted) {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Dashboard()),
+                                    );
+                                  }
                                 }
                               } else {
                                 if (await UserCRUD().isThisUserFound(

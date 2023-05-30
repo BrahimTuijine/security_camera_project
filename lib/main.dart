@@ -1,13 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:security_camera_project/features/onboarding/onboarding.dart';
+import 'package:security_camera_project/constants.dart';
+import 'package:security_camera_project/features/dashboard/dashboard.dart';
 import 'package:security_camera_project/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.android,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
 }
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (context, child) => MaterialApp(
+        theme: ThemeData(
+          primaryColor: kOrangeColor,
+        ),
         builder: (context, child) => GestureDetector(
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
@@ -26,7 +30,8 @@ class MyApp extends StatelessWidget {
           child: child,
         ),
         debugShowCheckedModeBanner: false,
-        home: const OnboardingScreen(),
+        // home: const OnboardingScreen(),
+        home: const Dashboard(),
       ),
     );
   }
