@@ -11,14 +11,40 @@ import 'package:security_camera_project/features/sensorsList/mq7.dart';
 
 class HomePage extends HookWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  
+
+  
+
   @override
   Widget build(BuildContext context) {
     useEffect(() {
       FirebaseMessaging.instance.getToken().then((value) {
-        print(value);
+        print('*' * 100);
+        print("token $value");
       }).catchError((error) {
         print(error);
       });
+      //! execute when app opened
+      FirebaseMessaging.onMessage.listen((message) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.info,
+          animType: AnimType.rightSlide,
+          headerAnimationLoop: false,
+          title: message.notification!.title,
+          desc: message.notification!.body,
+          btnOkOnPress: () {},
+          btnOkIcon: Icons.cancel,
+          btnOkColor: kOrangeColor,
+        ).show();
+      });
+
+     
+
+      //! execute when app is terminated
+      FirebaseMessaging.onMessageOpenedApp.listen((event) {});
+
       return null;
     }, const []);
     Size size = MediaQuery.of(context).size;
