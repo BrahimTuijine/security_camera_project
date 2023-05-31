@@ -9,10 +9,19 @@ import 'package:security_camera_project/core/widget/default_btn.dart';
 import 'package:security_camera_project/features/auth/login_page.dart';
 import 'package:security_camera_project/features/sensorsList/gas_sensor.dart';
 import 'package:security_camera_project/features/sensorsList/mq7.dart';
+import 'package:security_camera_project/features/sensorsList/temperature.dart';
 
 class HomePage extends HookWidget {
   void navigateToChart(int currentIndex, BuildContext context) {
     switch (currentIndex) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Temperature(),
+          ),
+        );
+        break;
       case 1:
         Navigator.push(
           context,
@@ -25,7 +34,7 @@ class HomePage extends HookWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const GasValueChart(),
+            builder: (context) =>  GasValueChart(),
           ),
         );
         break;
@@ -35,10 +44,6 @@ class HomePage extends HookWidget {
   }
 
   const HomePage({Key? key}) : super(key: key);
-
-  
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +68,6 @@ class HomePage extends HookWidget {
           btnOkColor: kOrangeColor,
         ).show();
       });
-
-     
 
       //! execute when app is terminated
       FirebaseMessaging.onMessageOpenedApp.listen((event) {});
@@ -169,8 +172,9 @@ class HomePage extends HookWidget {
                 ),
               ],
             ),
+            SizedBox(height: size.height * .03),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ControllButton(
                   onTap: () {
@@ -190,15 +194,15 @@ class HomePage extends HookWidget {
                   title: 'Capteur Flamme ',
                   icon: Icons.grass,
                 ),
-                ControllButton(
-                  onTap: () {
-                    selectedIndex.value = 5;
-                  },
-                  selected: selectedIndex.value == 5,
-                  size: size,
-                  title: 'Camera Access',
-                  icon: Icons.camera,
-                ),
+                // ControllButton(
+                //   onTap: () {
+                //     selectedIndex.value = 5;
+                //   },
+                //   selected: selectedIndex.value == 5,
+                //   size: size,
+                //   title: 'Camera Access',
+                //   icon: Icons.camera,
+                // ),
               ],
             ),
             SizedBox(height: size.height * 0.05),
