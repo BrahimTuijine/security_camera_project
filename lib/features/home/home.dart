@@ -7,9 +7,33 @@ import 'package:security_camera_project/core/db/auth.dart';
 import 'package:security_camera_project/core/widget/button.dart';
 import 'package:security_camera_project/core/widget/default_btn.dart';
 import 'package:security_camera_project/features/auth/login_page.dart';
+import 'package:security_camera_project/features/sensorsList/gas_sensor.dart';
 import 'package:security_camera_project/features/sensorsList/mq7.dart';
 
 class HomePage extends HookWidget {
+  void navigateToChart(int currentIndex, BuildContext context) {
+    switch (currentIndex) {
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const GaugeTemperatureMonitorExample(),
+          ),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const GasValueChart(),
+          ),
+        );
+        break;
+      default:
+        print("nothing for now");
+    }
+  }
+
   const HomePage({Key? key}) : super(key: key);
 
   
@@ -117,19 +141,31 @@ class HomePage extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ControllButton(
+                  onTap: () {
+                    selectedIndex.value = 0;
+                  },
+                  selected: selectedIndex.value == 0,
                   size: size,
-                  title: 'Maintenance\nRequests',
-                  icon: Icons.settings_outlined,
+                  title: 'Temperature',
+                  icon: Icons.ac_unit,
                 ),
                 ControllButton(
+                  onTap: () {
+                    selectedIndex.value = 1;
+                  },
+                  selected: selectedIndex.value == 1,
                   size: size,
-                  title: 'Integrations\n ',
+                  title: 'humidity',
                   icon: Icons.grain,
                 ),
                 ControllButton(
+                  onTap: () {
+                    selectedIndex.value = 2;
+                  },
+                  selected: selectedIndex.value == 2,
                   size: size,
-                  title: 'Light\nControl',
-                  icon: Icons.highlight,
+                  title: 'Gas Value',
+                  icon: Icons.gas_meter_outlined,
                 ),
               ],
             ),
@@ -137,30 +173,38 @@ class HomePage extends HookWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ControllButton(
+                  onTap: () {
+                    selectedIndex.value = 3;
+                  },
+                  selected: selectedIndex.value == 3,
                   size: size,
-                  title: 'Leak\nDetector',
-                  icon: Icons.opacity,
+                  title: 'MQ7',
+                  icon: Icons.gas_meter,
                 ),
                 ControllButton(
+                  onTap: () {
+                    selectedIndex.value = 4;
+                  },
+                  selected: selectedIndex.value == 4,
                   size: size,
-                  title: 'Temperature\nControl ',
-                  icon: Icons.ac_unit,
+                  title: 'Capteur Flamme ',
+                  icon: Icons.grass,
                 ),
                 ControllButton(
+                  onTap: () {
+                    selectedIndex.value = 5;
+                  },
+                  selected: selectedIndex.value == 5,
                   size: size,
-                  title: 'Guest\nAccess',
-                  icon: Icons.vpn_key,
+                  title: 'Camera Access',
+                  icon: Icons.camera,
                 ),
               ],
             ),
             SizedBox(height: size.height * 0.05),
             DefaultButton(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => GaugeTemperatureMonitorExample()),
-                );
+                navigateToChart(selectedIndex.value, context);
               },
               size: size,
               title: "Next",
