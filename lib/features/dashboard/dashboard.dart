@@ -4,6 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:security_camera_project/constants.dart';
 import 'package:security_camera_project/features/addUser/user_list.dart';
+import 'package:security_camera_project/features/camera/camera.dart';
 import 'package:security_camera_project/features/home/home.dart';
 
 class Dashboard extends HookWidget {
@@ -13,12 +14,7 @@ class Dashboard extends HookWidget {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
-    const Center(
-      child: Text(
-        'Camera',
-        style: optionStyle,
-      ),
-    ),
+    Camera(),
     AddUser()
   ];
 

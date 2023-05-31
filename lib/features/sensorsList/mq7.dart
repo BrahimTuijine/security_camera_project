@@ -37,6 +37,10 @@ class GaugeTemperatureMonitorExample extends HookWidget {
               print(snapshot.error);
             }
             if (snapshot.hasData) {
+              final data = snapshot.data!.snapshot.value as Map;
+
+              print(data);
+
               return SfRadialGauge(
                 animationDuration: 3500,
                 enableLoadingAnimation: true,
@@ -92,9 +96,7 @@ class GaugeTemperatureMonitorExample extends HookWidget {
                           angle: 90,
                           positionFactor: 0.8,
                           widget: Text(
-                            (snapshot.data!.snapshot.value
-                                        as Map)["humidity"] ==
-                                    null
+                            data["humidity"] == null
                                 ? '...'
                                 : '${(snapshot.data!.snapshot.value as Map)["humidity"].toString()}%',
                             style: const TextStyle(
@@ -104,8 +106,7 @@ class GaugeTemperatureMonitorExample extends HookWidget {
                       ],
                       pointers: <GaugePointer>[
                         NeedlePointer(
-                          value: (snapshot.data!.snapshot.value
-                              as Map)['humidity'] as double,
+                          value: double.parse(data['humidity'].toString()),
                           needleStartWidth: isCardView.value ? 0 : 1,
                           needleEndWidth: isCardView.value ? 5 : 8,
                           animationType: AnimationType.easeOutBack,
@@ -134,7 +135,7 @@ class GaugeTemperatureMonitorExample extends HookWidget {
                 ],
               );
             }
-            return const SizedBox();
+            return const Center(child: CircularProgressIndicator(),);
           }),
     );
   }
