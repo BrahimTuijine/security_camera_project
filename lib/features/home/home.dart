@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:security_camera_project/constants.dart';
 import 'package:security_camera_project/core/db/auth.dart';
+import 'package:security_camera_project/core/db/save_user.dart';
 import 'package:security_camera_project/core/widget/button.dart';
 import 'package:security_camera_project/core/widget/default_btn.dart';
 import 'package:security_camera_project/features/auth/login_page.dart';
@@ -34,7 +35,7 @@ class HomePage extends HookWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  GasValueChart(),
+            builder: (context) => GasValueChart(),
           ),
         );
         break;
@@ -87,6 +88,7 @@ class HomePage extends HookWidget {
             onPressed: () async {
               try {
                 await Auth().signOut();
+                await LocalUser.deleteUser();
                 if (context.mounted) {
                   Navigator.pushReplacement(
                     context,

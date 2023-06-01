@@ -135,7 +135,7 @@ class Temperature extends HookWidget {
                                 ),
                               )),
                           LinearWidgetPointer(
-                            value: meterValue,
+                            value: double.parse(meterValue.toString()),
                             enableAnimation: false,
                             position: LinearElementPosition.outside,
                             onChanged: (dynamic value) {},
@@ -152,7 +152,7 @@ class Temperature extends HookWidget {
                             ),
                           ),
                           LinearShapePointer(
-                            value: meterValue,
+                            value: double.parse(meterValue.toString()),
                             width: 20,
                             height: 20,
                             enableAnimation: false,
@@ -163,7 +163,7 @@ class Temperature extends HookWidget {
                         ],
                         barPointers: <LinearBarPointer>[
                           LinearBarPointer(
-                            value: meterValue,
+                            value: double.parse(meterValue.toString()),
                             enableAnimation: false,
                             thickness: 6,
                             edgeStyle: LinearEdgeStyle.endCurve,

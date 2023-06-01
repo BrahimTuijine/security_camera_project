@@ -14,7 +14,7 @@ class Dashboard extends HookWidget {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
-    Camera(),
+    const Camera(),
     AddUser()
   ];
 

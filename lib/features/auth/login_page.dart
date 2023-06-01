@@ -4,7 +4,9 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:security_camera_project/constants.dart';
+import 'package:security_camera_project/core/Model/saved_user.dart';
 import 'package:security_camera_project/core/db/auth.dart';
+import 'package:security_camera_project/core/db/save_user.dart';
 import 'package:security_camera_project/core/db/user.dart';
 import 'package:security_camera_project/core/extension/extensions.dart';
 import 'package:security_camera_project/features/dashboard/dashboard.dart';
@@ -140,84 +142,112 @@ class LoginPage extends HookWidget {
                       ],
                     ),
                     15.h.bh,
-                    Center(
-                      child: SizedBox(
-                        height: 50.h,
-                        width: 220.w,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: kOrangeColor,
-                              shape: const StadiumBorder()),
-                          onPressed: () async {
-                            if (formKey.currentState!.validate()) {
-                              formKey.currentState!.save();
+                    HookBuilder(builder: (context) {
+                      final isLoading = useState<bool>(false);
+                      return isLoading.value
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: kOrangeColor,
+                              ),
+                            )
+                          : Center(
+                              child: SizedBox(
+                                height: 50.h,
+                                width: 220.w,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: kOrangeColor,
+                                      shape: const StadiumBorder()),
+                                  onPressed: () async {
+                                    if (formKey.currentState!.validate()) {
+                                      formKey.currentState!.save();
 
-                              if (isAdmin.value == 0) {
-                                final auth = await Auth.signInWithEmailAndPass(
-                                    email: email.trim(),
-                                    password: password.trim());
+                                      isLoading.value = true;
 
-                                if (auth == null) {
-                                  if (context.mounted) {
-                                    AwesomeDialog(
-                                      context: context,
-                                      dialogType: DialogType.error,
-                                      animType: AnimType.rightSlide,
-                                      headerAnimationLoop: false,
-                                      title: 'Error',
-                                      desc:
-                                          "nom d'utilisateur ou mot de passe erroné",
-                                      btnOkOnPress: () {},
-                                      btnOkIcon: Icons.cancel,
-                                      btnOkColor: Colors.red,
-                                    ).show();
-                                  }
-                                } else {
-                                  if (context.mounted) {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Dashboard()),
-                                    );
-                                  }
-                                }
-                              } else {
-                                if (await UserCRUD().isThisUserFound(
-                                    email: email, passowrd: password)) {
-                                  if (context.mounted) {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const UserDashboard()),
-                                    );
-                                  }
-                                } else {
-                                  if (context.mounted) {
-                                    AwesomeDialog(
-                                      context: context,
-                                      dialogType: DialogType.error,
-                                      animType: AnimType.rightSlide,
-                                      headerAnimationLoop: false,
-                                      title: 'Error',
-                                      desc:
-                                          "nom d'utilisateur ou mot de passe erroné",
-                                      btnOkOnPress: () {},
-                                      btnOkIcon: Icons.cancel,
-                                      btnOkColor: Colors.red,
-                                    ).show();
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          child: const Text(
-                            "SE CONNECTER",
-                          ),
-                        ),
-                      ),
-                    ),
+                                      if (isAdmin.value == 0) {
+                                        final auth =
+                                            await Auth.signInWithEmailAndPass(
+                                                email: email.trim(),
+                                                password: password.trim());
+
+                                        if (auth == null) {
+                                          if (context.mounted) {
+                                            isLoading.value = false;
+                                            AwesomeDialog(
+                                              context: context,
+                                              dialogType: DialogType.error,
+                                              animType: AnimType.rightSlide,
+                                              headerAnimationLoop: false,
+                                              title: 'Error',
+                                              desc:
+                                                  "nom d'utilisateur ou mot de passe erroné",
+                                              btnOkOnPress: () {},
+                                              btnOkIcon: Icons.cancel,
+                                              btnOkColor: Colors.red,
+                                            ).show();
+                                          }
+                                        } else {
+                                          //! save user data
+                                          await LocalUser.saveUserInLoacal(
+                                              SavedUser.fromJson({
+                                            "email": email.trim(),
+                                            "password": password.trim(),
+                                            "type": isAdmin.value
+                                          }));
+                                          if (context.mounted) {
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const Dashboard()),
+                                            );
+                                          }
+                                        }
+                                      } else {
+                                        if (await UserCRUD().isThisUserFound(
+                                            email: email, passowrd: password)) {
+                                          //! save user data
+                                          await LocalUser.saveUserInLoacal(
+                                              SavedUser.fromJson({
+                                            "email": email.trim(),
+                                            "password": password.trim(),
+                                            "type": isAdmin.value
+                                          }));
+                                          if (context.mounted) {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const UserDashboard()),
+                                            );
+                                          }
+                                        } else {
+                                          if (context.mounted) {
+                                            isLoading.value = false;
+                                            AwesomeDialog(
+                                              context: context,
+                                              dialogType: DialogType.error,
+                                              animType: AnimType.rightSlide,
+                                              headerAnimationLoop: false,
+                                              title: 'Error',
+                                              desc:
+                                                  "nom d'utilisateur ou mot de passe erroné",
+                                              btnOkOnPress: () {},
+                                              btnOkIcon: Icons.cancel,
+                                              btnOkColor: Colors.red,
+                                            ).show();
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  child: const Text(
+                                    "SE CONNECTER",
+                                  ),
+                                ),
+                              ),
+                            );
+                    }),
                   ],
                 ),
               ),
