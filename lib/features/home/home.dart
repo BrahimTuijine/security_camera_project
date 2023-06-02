@@ -8,6 +8,7 @@ import 'package:security_camera_project/core/db/save_user.dart';
 import 'package:security_camera_project/core/widget/button.dart';
 import 'package:security_camera_project/core/widget/default_btn.dart';
 import 'package:security_camera_project/features/auth/login_page.dart';
+import 'package:security_camera_project/features/camera/camera.dart';
 import 'package:security_camera_project/features/sensorsList/gas_sensor.dart';
 import 'package:security_camera_project/features/sensorsList/mq7.dart';
 import 'package:security_camera_project/features/sensorsList/temperature.dart';
@@ -36,6 +37,14 @@ class HomePage extends HookWidget {
           context,
           MaterialPageRoute(
             builder: (context) => GasValueChart(),
+          ),
+        );
+        break;
+      case 5:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Camera(),
           ),
         );
         break;
@@ -196,15 +205,15 @@ class HomePage extends HookWidget {
                   title: 'Capteur Flamme ',
                   icon: Icons.grass,
                 ),
-                // ControllButton(
-                //   onTap: () {
-                //     selectedIndex.value = 5;
-                //   },
-                //   selected: selectedIndex.value == 5,
-                //   size: size,
-                //   title: 'Camera Access',
-                //   icon: Icons.camera,
-                // ),
+                ControllButton(
+                  onTap: () {
+                    selectedIndex.value = 5;
+                  },
+                  selected: selectedIndex.value == 5,
+                  size: size,
+                  title: 'Camera',
+                  icon: Icons.camera,
+                ),
               ],
             ),
             SizedBox(height: size.height * 0.05),

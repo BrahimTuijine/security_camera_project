@@ -6,6 +6,7 @@ import 'package:security_camera_project/constants.dart';
 import 'package:security_camera_project/features/addUser/user_list.dart';
 import 'package:security_camera_project/features/camera/camera.dart';
 import 'package:security_camera_project/features/home/home.dart';
+import 'package:security_camera_project/features/sensor_crud/sensors_list.dart';
 
 class Dashboard extends HookWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class Dashboard extends HookWidget {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
-    const Camera(),
+    const SensorList(),
     AddUser()
   ];
 
@@ -54,8 +55,8 @@ class Dashboard extends HookWidget {
                     text: 'Home',
                   ),
                   GButton(
-                    icon: Icons.camera,
-                    text: 'Camera',
+                    icon: Icons.sensors_sharp,
+                    text: 'Sensors',
                   ),
                   GButton(
                     icon: LineIcons.userPlus,

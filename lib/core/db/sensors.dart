@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:security_camera_project/core/Model/sensors_model.dart';
 
-class SendorsCRUD {
+class SensorsCRUD {
   CollectionReference userRef =
       FirebaseFirestore.instance.collection("sensors");
 
