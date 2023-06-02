@@ -12,8 +12,8 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 /// Locals imports
 
 /// Renders the gauge temperature monitor sample.
-class GaugeTemperatureMonitorExample extends HookWidget {
-  const GaugeTemperatureMonitorExample({super.key});
+class HumiditySensor extends HookWidget {
+  const HumiditySensor({super.key});
 
   /// Creates the gauge temperature monitor sample.
 
@@ -135,7 +135,9 @@ class GaugeTemperatureMonitorExample extends HookWidget {
                 ],
               );
             }
-            return const Center(child: CircularProgressIndicator(),);
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }),
     );
   }

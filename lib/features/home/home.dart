@@ -9,8 +9,10 @@ import 'package:security_camera_project/core/widget/button.dart';
 import 'package:security_camera_project/core/widget/default_btn.dart';
 import 'package:security_camera_project/features/auth/login_page.dart';
 import 'package:security_camera_project/features/camera/camera.dart';
+import 'package:security_camera_project/features/sensorsList/flame_detector.dart';
 import 'package:security_camera_project/features/sensorsList/gas_sensor.dart';
-import 'package:security_camera_project/features/sensorsList/mq7.dart';
+import 'package:security_camera_project/features/sensorsList/humidity_sensor.dart';
+import 'package:security_camera_project/features/sensorsList/mq7_sensor.dart';
 import 'package:security_camera_project/features/sensorsList/temperature.dart';
 
 class HomePage extends HookWidget {
@@ -28,7 +30,7 @@ class HomePage extends HookWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const GaugeTemperatureMonitorExample(),
+            builder: (context) => const HumiditySensor(),
           ),
         );
         break;
@@ -40,11 +42,27 @@ class HomePage extends HookWidget {
           ),
         );
         break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MQ7Sensor(),
+          ),
+        );
+        break;
+      case 4:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const FlameDetector(),
+          ),
+        );
+        break;
       case 5:
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Camera(),
+            builder: (context) => const Camera(),
           ),
         );
         break;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:security_camera_project/core/extension/extensions.dart';
-import 'package:security_camera_project/features/sensorsList/mq7.dart';
+import 'package:security_camera_project/features/sensorsList/humidity_sensor.dart';
 
 class SensorsList extends HookWidget {
   const SensorsList({Key? key}) : super(key: key);
@@ -20,9 +20,10 @@ class SensorsList extends HookWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                 context,
-                 MaterialPageRoute(builder: (context) => GaugeTemperatureMonitorExample()),
-                 );
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const HumiditySensor()),
+                );
               },
               child: const Text(
                 "MQ7",
