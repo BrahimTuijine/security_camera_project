@@ -44,186 +44,181 @@ class CreateUpdateSensor extends HookWidget {
           elevation: 0,
           backgroundColor: Colors.transparent,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Form(
-              key: formKey,
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // 40.h.bh,
-                  Center(
-                    child: SizedBox(
-                      height: 200.h,
-                      width: 200.w,
-                      child: Image.asset('assets/images/user.png'),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Form(
+            key: formKey,
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // 40.h.bh,
+                Center(
+                  child: SizedBox(
+                    height: 200.h,
+                    width: 200.w,
+                    child: Image.asset('assets/images/sensor.png'),
+                  ),
+                ),
+                Text(
+                  sensorToUpdate == null ? 'Create sensor' : 'Update sensor',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 30.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+                20.h.bh,
+                TextFormField(
+                  initialValue:
+                      sensorToUpdate == null ? '' : sensorToUpdate!.sensorType,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.supervisor_account_sharp,
+                      color: Colors.blue,
                     ),
+                    hintText: 'Type de capteur',
+                    hintStyle: const TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.blue.withOpacity(.3),
+                    filled: true,
                   ),
-                  Text(
-                    sensorToUpdate == null ? 'Create sensor' : 'Update sensor',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 30.sp,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  20.h.bh,
-                  TextFormField(
-                    initialValue: sensorToUpdate == null
-                        ? ''
-                        : sensorToUpdate!.sensorType,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.supervisor_account_sharp,
-                        color: Colors.blue,
-                      ),
-                      hintText: 'Type de capteur',
-                      hintStyle: const TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.r),
-                          borderSide: BorderSide.none),
-                      fillColor: Colors.blue.withOpacity(.3),
-                      filled: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'ne doit pas être vide';
+                    }
+                    return null;
+                  },
+                  onSaved: (sensorType) {
+                    sensorData['sensorType'] = sensorType!;
+                  },
+                ),
+                15.h.bh,
+                TextFormField(
+                  initialValue:
+                      sensorToUpdate == null ? '' : sensorToUpdate!.refrences,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.email,
+                      color: Colors.blue,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'ne doit pas être vide';
-                      }
-                      return null;
-                    },
-                    onSaved: (sensorType) {
-                      sensorData['sensorType'] = sensorType!;
-                    },
+                    hintText: 'Reference',
+                    hintStyle: const TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.blue.withOpacity(.3),
+                    filled: true,
                   ),
-                  15.h.bh,
-                  TextFormField(
-                    initialValue:
-                        sensorToUpdate == null ? '' : sensorToUpdate!.refrences,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.email,
-                        color: Colors.blue,
-                      ),
-                      hintText: 'Reference',
-                      hintStyle: const TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.r),
-                          borderSide: BorderSide.none),
-                      fillColor: Colors.blue.withOpacity(.3),
-                      filled: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'ne doit pas être vide';
+                    }
+                    return null;
+                  },
+                  onSaved: (refrences) {
+                    sensorData['refrences'] = refrences!;
+                  },
+                ),
+                15.h.bh,
+                TextFormField(
+                  initialValue: sensorToUpdate == null
+                      ? ''
+                      : sensorToUpdate!.measuringRange,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                      color: Colors.blue,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'ne doit pas être vide';
-                      }
-                      return null;
-                    },
-                    onSaved: (refrences) {
-                      sensorData['refrences'] = refrences!;
-                    },
+                    hintText: 'Plage de mesure',
+                    hintStyle: const TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.blue.withOpacity(.3),
+                    filled: true,
                   ),
-                  15.h.bh,
-                  TextFormField(
-                    initialValue: sensorToUpdate == null
-                        ? ''
-                        : sensorToUpdate!.measuringRange,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.lock_outline,
-                        color: Colors.blue,
-                      ),
-                      hintText: 'Plage de mesure',
-                      hintStyle: const TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.r),
-                          borderSide: BorderSide.none),
-                      fillColor: Colors.blue.withOpacity(.3),
-                      filled: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'ne doit pas être vide';
+                    }
+                    return null;
+                  },
+                  onSaved: (measuringRange) {
+                    sensorData['measuringRange'] = measuringRange!;
+                  },
+                ),
+                15.h.bh,
+                TextFormField(
+                  initialValue: sensorToUpdate == null
+                      ? ''
+                      : sensorToUpdate!.sustainability,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                      color: Colors.blue,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'ne doit pas être vide';
-                      }
-                      return null;
-                    },
-                    onSaved: (measuringRange) {
-                      sensorData['measuringRange'] = measuringRange!;
-                    },
+                    hintText: 'durabilité',
+                    hintStyle: const TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.blue.withOpacity(.3),
+                    filled: true,
                   ),
-                  15.h.bh,
-                  TextFormField(
-                    initialValue: sensorToUpdate == null
-                        ? ''
-                        : sensorToUpdate!.sustainability,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.lock_outline,
-                        color: Colors.blue,
-                      ),
-                      hintText: 'durabilité',
-                      hintStyle: const TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.r),
-                          borderSide: BorderSide.none),
-                      fillColor: Colors.blue.withOpacity(.3),
-                      filled: true,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'ne doit pas être vide';
-                      }
-                      return null;
-                    },
-                    onSaved: (sustainability) {
-                      sensorData['sustainability'] = sustainability!;
-                    },
-                  ),
-                  15.h.bh,
-                  Center(
-                    child: SizedBox(
-                      height: 50.h,
-                      width: 220.w,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: const StadiumBorder()),
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            if (sensorToUpdate == null) {
-                              SensorsCRUD().addSensor(sensorData);
-                            } else {
-                              SensorsCRUD().updateSensor(
-                                  docId: sensorToUpdate!.id!,
-                                  sensor: sensorData);
-                            }
-                            AwesomeDialog(
-                              context: context,
-                              animType: AnimType.leftSlide,
-                              headerAnimationLoop: false,
-                              dialogType: DialogType.success,
-                              showCloseIcon: true,
-                              title: 'Succes',
-                              desc: '',
-                              btnOkOnPress: () {
-                                Navigator.pop(context);
-                              },
-                              btnOkIcon: Icons.check_circle,
-                              onDismissCallback: (type) {
-                                debugPrint(
-                                    'Dialog Dissmiss from callback $type');
-                              },
-                            ).show();
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'ne doit pas être vide';
+                    }
+                    return null;
+                  },
+                  onSaved: (sustainability) {
+                    sensorData['sustainability'] = sustainability!;
+                  },
+                ),
+                15.h.bh,
+                Center(
+                  child: SizedBox(
+                    height: 50.h,
+                    width: 220.w,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: const StadiumBorder()),
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+                          if (sensorToUpdate == null) {
+                            SensorsCRUD().addSensor(sensorData);
+                          } else {
+                            SensorsCRUD().updateSensor(
+                                docId: sensorToUpdate!.id!, sensor: sensorData);
                           }
-                        },
-                        child: const Text(
-                          "ENREGISTRER",
-                        ),
+                          AwesomeDialog(
+                            context: context,
+                            animType: AnimType.leftSlide,
+                            headerAnimationLoop: false,
+                            dialogType: DialogType.success,
+                            showCloseIcon: true,
+                            title: 'Succes',
+                            desc: '',
+                            btnOkOnPress: () {
+                              Navigator.pop(context);
+                            },
+                            btnOkIcon: Icons.check_circle,
+                            onDismissCallback: (type) {
+                              debugPrint('Dialog Dissmiss from callback $type');
+                            },
+                          ).show();
+                        }
+                      },
+                      child: const Text(
+                        "ENREGISTRER",
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ));

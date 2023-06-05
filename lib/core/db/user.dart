@@ -34,12 +34,10 @@ class UserCRUD {
   Future<bool> isThisUserFound(
       {required String email, required String passowrd}) async {
     await for (final result in getUsers()) {
-      final user = result.where(
-          (element) => element.email == email && element.password == passowrd);
-      if (user.isNotEmpty) {
-        return true;
-      } else {
-        return false;
+      for (UserModel element in result) {
+        if (element.email == email && element.password == passowrd) {
+          return true;
+        }
       }
     }
 

@@ -180,7 +180,7 @@ class LoginPage extends HookWidget {
                                               headerAnimationLoop: false,
                                               title: 'Error',
                                               desc:
-                                                  "nom d'utilisateur ou mot de passe erroné",
+                                                  "email d'admin ou mot de passe erroné",
                                               btnOkOnPress: () {},
                                               btnOkIcon: Icons.cancel,
                                               btnOkColor: Colors.red,
@@ -205,7 +205,8 @@ class LoginPage extends HookWidget {
                                         }
                                       } else {
                                         if (await UserCRUD().isThisUserFound(
-                                            email: email, passowrd: password)) {
+                                            email: email.trim(),
+                                            passowrd: password.trim())) {
                                           //! save user data
                                           await LocalUser.saveUserInLoacal(
                                               SavedUser.fromJson({
@@ -231,7 +232,7 @@ class LoginPage extends HookWidget {
                                               headerAnimationLoop: false,
                                               title: 'Error',
                                               desc:
-                                                  "nom d'utilisateur ou mot de passe erroné",
+                                                  "email d'utilisateur ou mot de passe erroné",
                                               btnOkOnPress: () {},
                                               btnOkIcon: Icons.cancel,
                                               btnOkColor: Colors.red,
