@@ -16,6 +16,8 @@ import 'package:security_camera_project/features/sensorsList/mq7_sensor.dart';
 import 'package:security_camera_project/features/sensorsList/temperature.dart';
 
 class HomePage extends HookWidget {
+  const HomePage({super.key});
+
   void navigateToChart(int currentIndex, BuildContext context) {
     switch (currentIndex) {
       case 0:
@@ -71,8 +73,6 @@ class HomePage extends HookWidget {
     }
   }
 
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     useEffect(() {
@@ -113,28 +113,15 @@ class HomePage extends HookWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              try {
+              final localUser = await LocalUser.isUserFromLocalFound();
+              if (localUser!.type == 0) {
                 await Auth().signOut();
-                await LocalUser.deleteUser();
-                if (context.mounted) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                }
-              } catch (e) {
-                AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.error,
-                  animType: AnimType.rightSlide,
-                  headerAnimationLoop: false,
-                  title: 'Error',
-                  desc: "Veuillez réessayer plus tard",
-                  btnOkOnPress: () {},
-                  btnOkIcon: Icons.cancel,
-                  btnOkColor: Colors.red,
-                ).show();
               }
+              await LocalUser.deleteUser();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
             },
             icon: const Icon(
               Icons.logout,

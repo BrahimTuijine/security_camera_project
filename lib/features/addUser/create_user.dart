@@ -1,4 +1,3 @@
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -86,6 +85,9 @@ class CreateUpdateUser extends HookWidget {
                       filled: true,
                     ),
                     validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ne doit pas être vide';
+                      }
                       return null;
                     },
                     onSaved: (nom) {
@@ -110,6 +112,9 @@ class CreateUpdateUser extends HookWidget {
                       filled: true,
                     ),
                     validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ne doit pas être vide';
+                      }
                       return null;
                     },
                     onSaved: (email) {
@@ -134,6 +139,9 @@ class CreateUpdateUser extends HookWidget {
                       filled: true,
                     ),
                     validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ne doit pas être vide';
+                      }
                       return null;
                     },
                     onSaved: (passowrd) {

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:security_camera_project/core/Model/sensors_model.dart';
 import 'package:security_camera_project/core/db/sensors.dart';
 import 'package:security_camera_project/core/extension/extensions.dart';
+import 'package:security_camera_project/features/sensor_crud/create_update_sensor.dart';
 
 class SensorList extends HookWidget {
   const SensorList({Key? key}) : super(key: key);
@@ -14,10 +15,10 @@ class SensorList extends HookWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => CreateUpdateUser()),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateUpdateSensor()),
+          );
         },
         child: const Icon(Icons.add),
       ),
@@ -36,7 +37,6 @@ class SensorList extends HookWidget {
         stream: SensorsCRUD.getSensors(),
         builder: (context, snapshot) {
           // print(snapshot.data);
-          print('*' * 100);
           print(snapshot.data);
           // final List<UserModel> users = [];
 
@@ -81,14 +81,14 @@ class SensorList extends HookWidget {
                           ),
                           IconButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => CreateUpdateUser(
-                              //       userToUpdate: snapshot.data![index],
-                              //     ),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateUpdateSensor(
+                                    sensorToUpdate: snapshot.data![index],
+                                  ),
+                                ),
+                              );
                             },
                             icon: const Icon(
                               Icons.edit,
