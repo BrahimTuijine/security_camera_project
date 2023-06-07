@@ -8,12 +8,12 @@ import 'package:security_camera_project/core/db/save_user.dart';
 import 'package:security_camera_project/core/widget/button.dart';
 import 'package:security_camera_project/core/widget/default_btn.dart';
 import 'package:security_camera_project/features/auth/login_page.dart';
-import 'package:security_camera_project/features/camera/camera.dart';
 import 'package:security_camera_project/features/sensorsList/flame_detector.dart';
 import 'package:security_camera_project/features/sensorsList/gas_sensor.dart';
 import 'package:security_camera_project/features/sensorsList/humidity_sensor.dart';
 import 'package:security_camera_project/features/sensorsList/mq7_sensor.dart';
 import 'package:security_camera_project/features/sensorsList/temperature.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends HookWidget {
   const HomePage({super.key});
@@ -60,14 +60,14 @@ class HomePage extends HookWidget {
           ),
         );
         break;
-      case 5:
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Camera(),
-          ),
-        );
-        break;
+      // case 5:
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => Camera(),
+      //     ),
+      //   );
+      //   break;
       default:
         print("nothing for now");
     }
@@ -223,8 +223,19 @@ class HomePage extends HookWidget {
             ),
             SizedBox(height: size.height * 0.05),
             DefaultButton(
-              onTap: () {
-                navigateToChart(selectedIndex.value, context);
+              onTap: () async {
+                if (selectedIndex.value == 5) {
+                  final Uri url = Uri.parse('http://192.168.1.112');
+                  if (!await launchUrl(url,
+                      mode: LaunchMode.externalApplication)) {
+                    throw Exception('Could not launch $url');
+                  }
+                } else {
+                  navigateToChart(selectedIndex.value, context);
+                }
+
+                // Methods.openURL('http://172.20.10.3');
+                // const String url = '192.168.1.112:80';
               },
               size: size,
               title: "Next",
