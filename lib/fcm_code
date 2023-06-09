@@ -1,0 +1,29 @@
+void sendNotification(const String& body) {
+  HTTPClient http;
+  http.begin("https://fcm.googleapis.com/fcm/send");
+  http.addHeader("Content-Type", "application/json");
+  http.addHeader("Authorization", "Bearer AAAAFdUHofg:APA91bGy4g7Uu-mp-piIus1TTFkKIdc8l5JKGGUktaIkyEkplk82dMh9MDFepHYSthitbjc45olHsn20EXBAyDm1FSPUDYso6Om44JUYWhqK-lPM1zFD8ZTCm7SEmKAuP9q0zXIuls6r");
+
+  StaticJsonDocument<200> jsonPayload;
+  jsonPayload["notification"]["body"] = body;
+  jsonPayload["notification"]["title"] = "Alerte";
+  jsonPayload["priority"] = 1;
+  jsonPayload["data"]["click_action"] = "FLUTTER_NOTIFICATION_CLICK";
+  jsonPayload["data"]["id"] = "100";
+  jsonPayload["to"] = "d35EpSAARxqEaMznDzYBdw:APA91bGsXGxc_nvKyMro1npGRBN2ZHBINPHmLwQ8Dvhfhqx1btz2Z43YzPeUA1xCSmL6Mtu9l7OHf3beO75jJ_v93V7DLILXqVbBTgKzRTwG9ZNP0w2VhaHeY0mzWmYIcWVmQBFeyE3W";
+
+  String jsonString;
+  serializeJson(jsonPayload, jsonString);
+
+  int httpResponseCode = http.POST(jsonString);
+  if (httpResponseCode == HTTP_CODE_OK) {
+    String response = http.getString();
+    Serial.println("Notification sent successfully");
+    Serial.println("Response: " + response);
+  } else {
+    Serial.print("Error sending notification. Error code: ");
+    Serial.println(httpResponseCode);
+  }
+
+  http.end();
+}

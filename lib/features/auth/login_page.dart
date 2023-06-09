@@ -214,14 +214,14 @@ class LoginPage extends HookWidget {
                                             "password": password.trim(),
                                             "type": isAdmin.value
                                           }));
-                                          if (context.mounted) {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const UserDashboard()),
-                                            );
-                                          }
+                                          // if (context.mounted) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const UserDashboard()),
+                                          );
+                                          // }
                                         } else {
                                           if (context.mounted) {
                                             isLoading.value = false;

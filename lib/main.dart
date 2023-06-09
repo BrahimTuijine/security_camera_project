@@ -6,6 +6,7 @@ import 'package:security_camera_project/constants.dart';
 import 'package:security_camera_project/core/Model/saved_user.dart';
 import 'package:security_camera_project/core/db/save_user.dart';
 import 'package:security_camera_project/features/dashboard/dashboard.dart';
+import 'package:security_camera_project/features/home/home.dart';
 import 'package:security_camera_project/features/onboarding/onboarding.dart';
 import 'package:security_camera_project/features/userDashboard/user_dashboard.dart';
 import 'package:security_camera_project/firebase_options.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
               if (snapshot.data!.type == 0) {
                 return const Dashboard();
               } else {
-                return const UserDashboard();
+                return HomePage();
               }
             }
           },

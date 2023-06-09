@@ -16,7 +16,7 @@ import 'package:security_camera_project/features/sensorsList/temperature.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends HookWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   void navigateToChart(int currentIndex, BuildContext context) {
     switch (currentIndex) {
@@ -72,6 +72,8 @@ class HomePage extends HookWidget {
         print("nothing for now");
     }
   }
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -225,11 +227,46 @@ class HomePage extends HookWidget {
             DefaultButton(
               onTap: () async {
                 if (selectedIndex.value == 5) {
-                  final Uri url = Uri.parse('http://192.168.1.112');
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw Exception('Could not launch $url');
-                  }
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        String ip = '';
+                        return Form(
+                          key: formKey,
+                          child: AlertDialog(
+                            title: const Text('Camera Ip'),
+                            content: TextFormField(
+                              onSaved: (newValue) {
+                                ip = newValue!;
+                              },
+                              validator: (value) {
+                                if (value!.length < 5) {
+                                  return 'Ip incorrect';
+                                }
+                                return null;
+                              },
+                              decoration: const InputDecoration(),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () async {
+                                  if (formKey.currentState!.validate()) {
+                                    formKey.currentState!.save();
+                                    final Uri url = Uri.parse('http://$ip');
+                                    if (!await launchUrl(url,
+                                        mode: LaunchMode.externalApplication)) {
+                                      throw Exception('Could not launch $url');
+                                    }
+                                  }
+                                },
+                                child: const Text(
+                                  "launch",
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      });
                 } else {
                   navigateToChart(selectedIndex.value, context);
                 }
