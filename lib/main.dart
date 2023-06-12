@@ -8,7 +8,6 @@ import 'package:security_camera_project/core/db/save_user.dart';
 import 'package:security_camera_project/features/dashboard/dashboard.dart';
 import 'package:security_camera_project/features/home/home.dart';
 import 'package:security_camera_project/features/onboarding/onboarding.dart';
-import 'package:security_camera_project/features/userDashboard/user_dashboard.dart';
 import 'package:security_camera_project/firebase_options.dart';
 
 //! execute when app on background
@@ -36,6 +35,9 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: (context, child) => MaterialApp(
         theme: ThemeData(
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: kOrangeColor,
+          ),
           primaryColor: kOrangeColor,
           progressIndicatorTheme:
               const ProgressIndicatorThemeData(color: kOrangeColor),

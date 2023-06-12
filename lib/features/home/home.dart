@@ -8,6 +8,7 @@ import 'package:security_camera_project/core/db/save_user.dart';
 import 'package:security_camera_project/core/widget/button.dart';
 import 'package:security_camera_project/core/widget/default_btn.dart';
 import 'package:security_camera_project/features/auth/login_page.dart';
+import 'package:security_camera_project/features/notification/notification_screen.dart';
 import 'package:security_camera_project/features/sensorsList/flame_detector.dart';
 import 'package:security_camera_project/features/sensorsList/gas_sensor.dart';
 import 'package:security_camera_project/features/sensorsList/humidity_sensor.dart';
@@ -112,6 +113,18 @@ class HomePage extends HookWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NotificationPage()),
+            );
+          },
+          icon: const Icon(
+            Icons.notifications_on,
+            color: Colors.black,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () async {
