@@ -47,7 +47,11 @@ class AddUser extends HookWidget {
           //   users.add(UserModel.fromJson(user as Map<String, String>));
           // }
           if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString()));
+            return Center(
+              child: Text(
+                snapshot.error.toString(),
+              ),
+            );
           }
 
           if (snapshot.hasData) {

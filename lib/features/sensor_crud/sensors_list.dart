@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -62,7 +61,7 @@ class SensorList extends HookWidget {
                       style: TextStyle(
                           fontSize: 16.sp, fontWeight: FontWeight.w500),
                     ),
-                    subtitle: Text(snapshot.data![index].refrences!),
+                    subtitle: Text(snapshot.data![index].isConnected!),
                     leading: const Icon(Icons.sensors_outlined),
                     trailing: SizedBox(
                       width: 120.w,

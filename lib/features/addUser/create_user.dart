@@ -21,6 +21,8 @@ class CreateUpdateUser extends HookWidget {
     'name': '',
     'email': '',
     'password': '',
+    'registerNumber': '',
+    'poste': ''
   };
 
   @override
@@ -28,6 +30,14 @@ class CreateUpdateUser extends HookWidget {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
+          centerTitle: true,
+          title: Text(
+            userToUpdate == null ? 'Create user' : 'Update user',
+            style: TextStyle(
+                color: Colors.blue,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600),
+          ),
           leading: Container(
             margin: EdgeInsets.only(left: 20.w),
             child: IconButton(
@@ -55,19 +65,12 @@ class CreateUpdateUser extends HookWidget {
                   // 40.h.bh,
                   Center(
                     child: SizedBox(
-                      height: 200.h,
-                      width: 200.w,
+                      height: 150.h,
+                      width: 150.w,
                       child: Image.asset('assets/images/user.png'),
                     ),
                   ),
-                  Text(
-                    userToUpdate == null ? 'Create user' : 'Update user',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 30.sp,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  20.h.bh,
+
                   TextFormField(
                     initialValue:
                         userToUpdate == null ? '' : userToUpdate!.name,
@@ -146,6 +149,61 @@ class CreateUpdateUser extends HookWidget {
                     },
                     onSaved: (passowrd) {
                       userData['password'] = passowrd!;
+                    },
+                  ),
+                  15.h.bh,
+                  TextFormField(
+                    initialValue: userToUpdate == null
+                        ? ''
+                        : userToUpdate!.registerNumber,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(
+                        Icons.lock_outline,
+                        color: Colors.blue,
+                      ),
+                      hintText: 'Matricule',
+                      hintStyle: const TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          borderSide: BorderSide.none),
+                      fillColor: Colors.blue.withOpacity(.3),
+                      filled: true,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ne doit pas être vide';
+                      }
+                      return null;
+                    },
+                    onSaved: (registerNumber) {
+                      userData['registerNumber'] = registerNumber!;
+                    },
+                  ),
+                  15.h.bh,
+                  TextFormField(
+                    initialValue:
+                        userToUpdate == null ? '' : userToUpdate!.poste,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(
+                        Icons.lock_outline,
+                        color: Colors.blue,
+                      ),
+                      hintText: 'Poste',
+                      hintStyle: const TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          borderSide: BorderSide.none),
+                      fillColor: Colors.blue.withOpacity(.3),
+                      filled: true,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'ne doit pas être vide';
+                      }
+                      return null;
+                    },
+                    onSaved: (poste) {
+                      userData['poste'] = poste!;
                     },
                   ),
                   15.h.bh,

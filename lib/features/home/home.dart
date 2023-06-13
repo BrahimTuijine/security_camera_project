@@ -117,7 +117,7 @@ class HomePage extends HookWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => NotificationPage()),
+              MaterialPageRoute(builder: (context) => const NotificationPage()),
             );
           },
           icon: const Icon(

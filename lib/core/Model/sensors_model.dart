@@ -8,32 +8,28 @@ String sensorModelToJson(SensorModel data) => json.encode(data.toJson());
 
 class SensorModel {
   final String? sensorType;
-  final String? refrences;
-  final String? measuringRange;
-  final String? sustainability;
+  final String? location;
+  final String? isConnected;
   final String? id;
 
   SensorModel({
     this.sensorType,
-    this.refrences,
-    this.measuringRange,
-    this.sustainability,
+    this.location,
+    this.isConnected,
     this.id,
   });
 
   factory SensorModel.fromJson(Map<String, dynamic> json) => SensorModel(
         sensorType: json["sensorType"],
-        refrences: json["refrences"],
-        measuringRange: json["measuringRange"],
-        sustainability: json["sustainability"],
+        location: json["location"],
+        isConnected: json["isConnected"],
         id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
         "sensorType": sensorType,
-        "refrences": refrences,
-        "measuringRange": measuringRange,
-        "sustainability": sustainability,
+        "location": location,
+        "isConnected": isConnected,
         "id": id,
       };
 }

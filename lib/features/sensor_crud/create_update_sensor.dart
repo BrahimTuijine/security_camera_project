@@ -19,8 +19,8 @@ class CreateUpdateSensor extends HookWidget {
 
   final Map<String, String> sensorData = {
     "sensorType": "",
-    "refrences": "",
-    "measuringRange": "",
+    "location": "",
+    "isConnected": "",
     "sustainability": "",
   };
 
@@ -97,13 +97,13 @@ class CreateUpdateSensor extends HookWidget {
                 15.h.bh,
                 TextFormField(
                   initialValue:
-                      sensorToUpdate == null ? '' : sensorToUpdate!.refrences,
+                      sensorToUpdate == null ? '' : sensorToUpdate!.location,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(
                       Icons.email,
                       color: Colors.blue,
                     ),
-                    hintText: 'Reference',
+                    hintText: 'Location',
                     hintStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.r),
@@ -118,20 +118,19 @@ class CreateUpdateSensor extends HookWidget {
                     return null;
                   },
                   onSaved: (refrences) {
-                    sensorData['refrences'] = refrences!;
+                    sensorData['location'] = refrences!;
                   },
                 ),
                 15.h.bh,
                 TextFormField(
-                  initialValue: sensorToUpdate == null
-                      ? ''
-                      : sensorToUpdate!.measuringRange,
+                  initialValue:
+                      sensorToUpdate == null ? '' : sensorToUpdate!.isConnected,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(
                       Icons.lock_outline,
                       color: Colors.blue,
                     ),
-                    hintText: 'Plage de mesure',
+                    hintText: 'isConnected',
                     hintStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.r),
@@ -142,39 +141,14 @@ class CreateUpdateSensor extends HookWidget {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'ne doit pas être vide';
-                    }
-                    return null;
-                  },
-                  onSaved: (measuringRange) {
-                    sensorData['measuringRange'] = measuringRange!;
-                  },
-                ),
-                15.h.bh,
-                TextFormField(
-                  initialValue: sensorToUpdate == null
-                      ? ''
-                      : sensorToUpdate!.sustainability,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(
-                      Icons.lock_outline,
-                      color: Colors.blue,
-                    ),
-                    hintText: 'durabilité',
-                    hintStyle: const TextStyle(color: Colors.white),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.r),
-                        borderSide: BorderSide.none),
-                    fillColor: Colors.blue.withOpacity(.3),
-                    filled: true,
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'ne doit pas être vide';
+                    } else if (!['true', 'false', 'oui', 'non']
+                        .contains(value.trim())) {
+                      return "devrait être true ou false , oui ou non";
                     }
                     return null;
                   },
                   onSaved: (sustainability) {
-                    sensorData['sustainability'] = sustainability!;
+                    sensorData['isConnected'] = sustainability!;
                   },
                 ),
                 15.h.bh,

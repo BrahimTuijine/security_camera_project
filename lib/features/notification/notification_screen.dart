@@ -55,6 +55,7 @@ class NotificationPage extends HookWidget {
                         fontSize: 14.0,
                       ),
                     ),
+                    subtitle: Text(snapshot.data![index].body.toString()),
                     leading: const CircleAvatar(
                       backgroundColor: Colors.blue,
                       child: Icon(

@@ -14,19 +14,25 @@ class UserModel {
   final String? name;
   final String? email;
   final String? password;
+  final String? registerNumber;
+  final String? poste;
 
   UserModel({
     required this.id,
     required this.name,
     required this.email,
     required this.password,
+    required this.registerNumber,
+    required this.poste,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        poste: json['poste'],
         name: json["name"],
         email: json["email"],
         password: json["password"],
         id: json["id"],
+        registerNumber: json['registerNumber'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,5 +40,7 @@ class UserModel {
         "name": name,
         "email": email,
         "password": password,
+        "poste": poste,
+        "registerNumber": registerNumber
       };
 }

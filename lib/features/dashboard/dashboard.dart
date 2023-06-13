@@ -4,7 +4,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:security_camera_project/constants.dart';
 import 'package:security_camera_project/features/addUser/user_list.dart';
-import 'package:security_camera_project/features/camera/camera.dart';
 import 'package:security_camera_project/features/home/home.dart';
 import 'package:security_camera_project/features/sensor_crud/sensors_list.dart';
 
