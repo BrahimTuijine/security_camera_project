@@ -33,14 +33,22 @@ class UserCRUD {
 
   Future<bool> isThisUserFound(
       {required String email, required String passowrd}) async {
-    await for (final result in getUsers()) {
-      for (UserModel element in result) {
-        if (element.email == email && element.password == passowrd) {
-          return true;
-        }
+    CollectionReference userRef =
+        FirebaseFirestore.instance.collection("users");
+
+    // final List users = [];
+
+    final mylist = await userRef
+        // .where('email', isEqualTo: email.trim())
+        // .where('password', isEqualTo: passowrd.trim())
+        .get();
+
+    for (var element in mylist.docs) {
+      final data = element.data() as Map;
+      if (data['email'].trim() == email.trim()) {
+        return true;
       }
     }
-
     return false;
   }
 }

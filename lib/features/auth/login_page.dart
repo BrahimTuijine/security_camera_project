@@ -10,7 +10,7 @@ import 'package:security_camera_project/core/db/save_user.dart';
 import 'package:security_camera_project/core/db/user.dart';
 import 'package:security_camera_project/core/extension/extensions.dart';
 import 'package:security_camera_project/features/dashboard/dashboard.dart';
-import 'package:security_camera_project/features/userDashboard/user_dashboard.dart';
+import 'package:security_camera_project/features/home/home.dart';
 
 class LoginPage extends HookWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -219,25 +219,25 @@ class LoginPage extends HookWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const UserDashboard()),
+                                                    HomePage()),
                                           );
                                           // }
                                         } else {
-                                          if (context.mounted) {
-                                            isLoading.value = false;
-                                            AwesomeDialog(
-                                              context: context,
-                                              dialogType: DialogType.error,
-                                              animType: AnimType.rightSlide,
-                                              headerAnimationLoop: false,
-                                              title: 'Error',
-                                              desc:
-                                                  "email d'utilisateur ou mot de passe erroné",
-                                              btnOkOnPress: () {},
-                                              btnOkIcon: Icons.cancel,
-                                              btnOkColor: Colors.red,
-                                            ).show();
-                                          }
+                                          // if (context.mounted) {
+                                          isLoading.value = false;
+                                          AwesomeDialog(
+                                            context: context,
+                                            dialogType: DialogType.error,
+                                            animType: AnimType.rightSlide,
+                                            headerAnimationLoop: false,
+                                            title: 'Error',
+                                            desc:
+                                                "email d'utilisateur ou mot de passe erroné",
+                                            btnOkOnPress: () {},
+                                            btnOkIcon: Icons.cancel,
+                                            btnOkColor: Colors.red,
+                                          ).show();
+                                          // }
                                         }
                                       }
                                     }

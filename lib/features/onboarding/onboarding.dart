@@ -100,45 +100,39 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         style: ElevatedButton.styleFrom(
                             shape: const StadiumBorder()),
                         onPressed: () {
-                          if (currentPage == 2) {
-                            // context.go('/auth');
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()),
-                            );
-                          }
-
-                          if (currentPage < 2) {
-                            _controller.jumpToPage(currentPage + 1);
-                          }
+                          // context.go('/auth');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()),
+                          );
                         },
                         child: const Text(
                           "Next",
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 11.h,
-                    ),
-                    Visibility(
-                      visible: currentPage < 2,
-                      child: SizedBox(
-                        height: 53.h,
-                        width: 337.w,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: const StadiumBorder()),
-                          onPressed: () {
-                            _controller.jumpToPage(2);
-                          },
-                          child: const Text(
-                            "Skip",
-                            style: TextStyle(),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: 11.h,
+                    // ),
+                    // Visibility(
+                    //   visible: currentPage < 2,
+                    //   child: SizedBox(
+                    //     height: 53.h,
+                    //     width: 337.w,
+                    //     child: ElevatedButton(
+                    //       style: ElevatedButton.styleFrom(
+                    //           shape: const StadiumBorder()),
+                    //       onPressed: () {
+                    //         _controller.jumpToPage(2);
+                    //       },
+                    //       child: const Text(
+                    //         "Skip",
+                    //         style: TextStyle(),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
